@@ -11,20 +11,7 @@
 #creer Ia algorithme
 
 
-    #plateau
-    #emplacemnt vide [0] = " " 
-    #colonne |
-
-# |1|2|3|
-# |4|5|6|
-# |7|8|9|
-
-# |space1|spac
-
-# #|[0]||
-# list_tempoaire=(0)
-
-import random  #useless now
+import random  #useless later
 
 #Variable
 variable_vide=" "
@@ -42,35 +29,35 @@ tour=1
 board=[variable_vide,variable_vide,variable_vide,variable_vide,variable_vide,variable_vide,variable_vide,variable_vide,variable_vide]
 signe_joueur="O"
 signe="X"
-
-# board={"emplacement1" : " ",
-#        "emplacement2" : " ",
-#        "emplacement3" : " ",
-#        "emplacement4" : " ",
-#        "emplacement5" : " ",
-#        "emplacement6" : " ",
-#        "emplacement7" : " ",
-#        "emplacement8" : " ",
-#        "emplacement9" : " ",
-#         }
-
-#IA focntion
+choix_IA=0
+#laisser le choix du signe ?
 
 
-# def ia(board,signe):
-#     #choirisr un emplacemnt inocupé
-#     #
-#     board[0]=signe
+    #IA focntion
+
+def ia(board,signe): #simple ia
+    choix_IA=random.randrange(0,8)
+    while board[choix_IA]==signe or board[choix_IA]==signe_joueur:
+        choix_IA=random.randrange(0,8) #make an or with if
+    # print("choix ia dans la fonction:",choix_IA)
+    return choix_IA #emplacemnt
+ia(board,signe)
     
-#     return board[] #emplacemnt
 
+# if tour>9:
+#     print("égalité")
+# else:
 
-
-while tour <10: #le jeu continu tant que 9 tour ne sont pas passé
+while tour <=9: #le jeu continu tant que 9 tour ne sont pas passé
     #player1
     choix_joueur1=int(input("selectionner emplacement: ")) #ajouter template
+    while board[choix_joueur1]==signe or board[choix_joueur1]==signe_joueur:
+        print("emplacement occupé") # try again a faire
+        choix_joueur1=int(input("selectionner emplacement: "))
+
     if board[choix_joueur1]==variable_vide: #ajouter exeption si choix du joueur est >9
         board[choix_joueur1]=signe_joueur
+      
     print("Tour :",tour, "Joueur1")
     print(mur,board[0],mur,board[1],mur,board[2],mur)
     print(mur,board[3],mur,board[4],mur,board[5],mur)
@@ -86,12 +73,16 @@ while tour <10: #le jeu continu tant que 9 tour ne sont pas passé
     ((board[2]==signe_joueur and board[4]==signe_joueur and board[6])==signe_joueur)):
         print("Joueur1 win")
         break
+    tour+=1
+
         #IA temporaire
-    choix_IA=random.randrange(0,8)       #valeur retourné par la fonction a changer
-    if board[choix_IA]==variable_vide:
-        board[choix_IA]=signe
-    else:
-        choix_IA=random.randrange(0,8)  #trying for looping test, need to change with alogrythm
+    #choix_IA=random.randrange(0,8)       #valeur retourné par la fonction a changer
+    while board[choix_IA]==signe or board[choix_IA]==signe_joueur:
+        choix_IA=random.randrange(0,8) #make an or with if
+    # elif board[choix_IA]==signe_joueur:
+    #     choix_IA=random.randrange(0,8)  #trying for looping test, need to change with alogrythm
+    
+    board[choix_IA]=signe
 
     print("Tour :",tour, "Ai choix :",choix_IA)
     print(mur,board[0],mur,board[1],mur,board[2],mur)
@@ -109,12 +100,14 @@ while tour <10: #le jeu continu tant que 9 tour ne sont pas passé
         print("AI win")
         break
     tour+=1
-    # else:
-    #     print("emplacement occupé") # try again a faire
+    # if tour==10:
+    #     print("égalité")
+    #     break
+
 
     # print("Tour:",tour)
 
-
+    #condition exeko a faire
 
 
     # def plateau(n):
