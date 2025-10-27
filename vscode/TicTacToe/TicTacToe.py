@@ -32,6 +32,9 @@ signe="X"
 choix_IA=0
 #laisser le choix du signe ?
 
+#choix du mode jeu
+#2joueurs ou ia
+mode_de_jeu=input("Choix du mode de jeu : 2 Joueurs / VS IA:")
 
     #IA focntion
 
@@ -50,6 +53,7 @@ ia(board,signe)
 
 while tour <=9: #le jeu continu tant que 9 tour ne sont pas passé
     #player1
+
     choix_joueur1=int(input("selectionner emplacement: ")) #ajouter template
     while board[choix_joueur1]==signe or board[choix_joueur1]==signe_joueur:
         print("emplacement occupé") # try again a faire
@@ -59,7 +63,7 @@ while tour <=9: #le jeu continu tant que 9 tour ne sont pas passé
         board[choix_joueur1]=signe_joueur
       
     print("Tour :",tour, "Joueur1")
-    print(mur,board[0],mur,board[1],mur,board[2],mur)
+    print(mur,board[0],mur,board[1],mur,board[2],mur) 
     print(mur,board[3],mur,board[4],mur,board[5],mur)
     print(mur,board[6],mur,board[7],mur,board[8],mur)
 
