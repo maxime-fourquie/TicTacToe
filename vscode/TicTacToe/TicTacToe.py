@@ -24,67 +24,96 @@
 # #|[0]||
 # list_tempoaire=(0)
 
-import random 
+import random  #useless now
 
 #Variable
 variable_vide=" "
 mur= "|"
-# emplacement1=variable_vide 
-# emplacement2=variable_vide
-# emplacement3=variable_vide
-# emplacement4=variable_vide
-# emplacement5=variable_vide
-# emplacement6=variable_vide    
-# emplacement7=variable_vide
-# emplacement8=variable_vide
-# emplacement9=variable_vide
-tour=0
-# list_vide=[variable_vide,variable_vide,variable_vide,variable_vide,variable_vide,variable_vide,variable_vide,variable_vide,variable_vide]
+emplacement1=variable_vide 
+emplacement2=variable_vide
+emplacement3=variable_vide
+emplacement4=variable_vide
+emplacement5=variable_vide
+emplacement6=variable_vide    
+emplacement7=variable_vide
+emplacement8=variable_vide
+emplacement9=variable_vide
+tour=1
+board=[variable_vide,variable_vide,variable_vide,variable_vide,variable_vide,variable_vide,variable_vide,variable_vide,variable_vide]
 signe_joueur="O"
 signe="X"
 
-board={"emplacement1" : " ",
-       "emplacement2" : " ",
-       "emplacement3" : " ",
-       "emplacement4" : " ",
-       "emplacement5" : " ",
-       "emplacement6" : " ",
-       "emplacement7" : " ",
-       "emplacement8" : " ",
-       "emplacement9" : " ",
-        }
+# board={"emplacement1" : " ",
+#        "emplacement2" : " ",
+#        "emplacement3" : " ",
+#        "emplacement4" : " ",
+#        "emplacement5" : " ",
+#        "emplacement6" : " ",
+#        "emplacement7" : " ",
+#        "emplacement8" : " ",
+#        "emplacement9" : " ",
+#         }
 
 #IA focntion
 
 
-def ia(board,signe):
-    board["emplacement1"]=signe
+# def ia(board,signe):
+#     #choirisr un emplacemnt inocupé
+#     #
+#     board[0]=signe
     
-    return board
+#     return board[] #emplacemnt
 
-print(board)
 
-print(mur,board["emplacement1"],mur,board["emplacement2"],mur,board["emplacement3"],mur)
-print(mur,board["emplacement4"],mur,board["emplacement5"],mur,board["emplacement6"],mur)
-print(mur,board["emplacement7"],mur,board["emplacement8"],mur,board["emplacement9"],mur)
 
-# while tour <9: #le jeu continu tant que 9 tour ne sont pas passé
-#     #player1
-#     choix_joueur1=int(input("selectionner emplacement:")) #ajouter template
-#     if list_vide[choix_joueur1]==variable_vide: #ajouter exeption si choix du joueur est >9
-#         list_vide[choix_joueur1]="O"
-        
+while tour <10: #le jeu continu tant que 9 tour ne sont pas passé
+    #player1
+    choix_joueur1=int(input("selectionner emplacement: ")) #ajouter template
+    if board[choix_joueur1]==variable_vide: #ajouter exeption si choix du joueur est >9
+        board[choix_joueur1]=signe_joueur
+    print("Tour :",tour, "Joueur1")
+    print(mur,board[0],mur,board[1],mur,board[2],mur)
+    print(mur,board[3],mur,board[4],mur,board[5],mur)
+    print(mur,board[6],mur,board[7],mur,board[8],mur)
 
-#     #IA
-#     choix_IA=random.randrange(0,8)
-#     if list_vide[choix_IA]==variable_vide:
-#         list_vide[choix_IA]="X"
-#         tour+=1
+    if (((board[0]==signe_joueur and board[1]==signe_joueur and board[2])==signe_joueur) or
+    ((board[3]==signe_joueur and board[4]==signe_joueur and board[5])==signe_joueur) or
+    ((board[6]==signe_joueur and board[7]==signe_joueur and board[8])==signe_joueur) or
+    ((board[0]==signe_joueur and board[3]==signe_joueur and board[6])==signe_joueur) or
+    ((board[1]==signe_joueur and board[4]==signe_joueur and board[7])==signe_joueur) or
+    ((board[2]==signe_joueur and board[5]==signe_joueur and board[8])==signe_joueur) or
+    ((board[0]==signe_joueur and board[4]==signe_joueur and board[8])==signe_joueur) or
+    ((board[2]==signe_joueur and board[4]==signe_joueur and board[6])==signe_joueur)):
+        print("Joueur1 win")
+        break
+        #IA temporaire
+    choix_IA=random.randrange(0,8)       #valeur retourné par la fonction a changer
+    if board[choix_IA]==variable_vide:
+        board[choix_IA]=signe
+    else:
+        choix_IA=random.randrange(0,8)  #trying for looping test, need to change with alogrythm
 
-#     else:
-#         print("emplacement occupé") # try again a faire
-    
-#     print("Tour:",tour)
+    print("Tour :",tour, "Ai choix :",choix_IA)
+    print(mur,board[0],mur,board[1],mur,board[2],mur)
+    print(mur,board[3],mur,board[4],mur,board[5],mur)
+    print(mur,board[6],mur,board[7],mur,board[8],mur)
+
+    if (((board[0]==signe and board[1]==signe and board[2])==signe) or
+    ((board[3]==signe and board[4]==signe and board[5])==signe) or
+    ((board[6]==signe and board[7]==signe and board[8])==signe) or
+    ((board[0]==signe and board[3]==signe and board[6])==signe) or
+    ((board[1]==signe and board[4]==signe and board[7])==signe) or
+    ((board[2]==signe and board[5]==signe and board[8])==signe) or
+    ((board[0]==signe and board[4]==signe and board[8])==signe) or
+    ((board[2]==signe and board[4]==signe and board[6])==signe)):
+        print("AI win")
+        break
+    tour+=1
+    # else:
+    #     print("emplacement occupé") # try again a faire
+
+    # print("Tour:",tour)
+
 
 
 
@@ -94,20 +123,21 @@ print(mur,board["emplacement7"],mur,board["emplacement8"],mur,board["emplacement
     # print(mur,list_vide[6],mur,list_vide[7],mur,list_vide[8],mur)
     # plateau(3)
 
-#condition de victoire
+    #condition de victoire
+    #si board[0],1 ,2 == "X"
 
 
-
-
-
-
-#emplacemnt utilisé
 
     
-# #def ia algo
 
-#player1
+    #si //same =="O"
+        #joueur win
+    #si tour 9 and no winnder, draw
 
-# choix_joueur1=input("selectionner emplacement:")
-# if choix_joueur1 == variable_vide:
-#     list_vide[choix_joueur1]="O"
+
+
+
+
+
+    
+
