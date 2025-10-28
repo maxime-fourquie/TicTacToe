@@ -33,6 +33,7 @@ choix_IA=""
 corner=(0,2,6,8)
 center=(1,3,5,7)
 row1=(0,1,2)
+diffuclty=""
 # row2=([3],[4],[5]) #notused
 # row3=([6],[7],[8])
 
@@ -54,6 +55,22 @@ def draw_board(board):
     print(mur,board[3],mur,board[4],mur,board[5],mur)
     print(mur,board[6],mur,board[7],mur,board[8],mur)
 
+
+def ia1(board,signe):
+    if board[4]==variable_vide:
+        choix_IA=4
+    elif (board[0]==variable_vide or board[2]==variable_vide or board [6]==variable_vide or board[8]==variable_vide): #choose 8
+            choix_IA=random.choice(corner)
+            while board[choix_IA]==signe or board[choix_IA]==signe_joueur:
+                choix_IA=random.choice(corner)
+    else:
+        choix_IA=random.choice(center)
+        while board[choix_IA]==signe or board[choix_IA]==signe_joueur:
+                choix_IA=random.choice(center)
+    
+    return choix_IA
+        #else return false to add
+choix_IA=ia1(board,signe)
 
 #choix du mode jeu
 #2joueurs ou ia
@@ -136,6 +153,12 @@ if mode_de_jeu_reponse=="Y": #creer variation de reponse
     #game mode VS IA
 elif mode_de_jeu_reponse=="N":
     print("loading VS IA mode")
+
+    #choosing difficulty - not working
+    diffuclty=input("Choose IA difficulty 0/1/2")
+    if diffuclty==2:
+        ia1(board,signe)
+
     template(mur)
     while tour <10: #le jeu continu tant que 9 tour ne sont pas passé
 
@@ -208,13 +231,13 @@ elif mode_de_jeu_reponse=="N":
         if tour>9:
             print("egalié")        
     #____________________________________________________________________________________
-            #IA temporaire
-        choix_IA=random.randrange(0,8)       #valeur retourné par la fonction a changer
-        while board[choix_IA]==signe or board[choix_IA]==signe_joueur:
-            choix_IA=random.randrange(0,8) #make an or with if
-        # elif board[choix_IA]==signe_joueur:
-            choix_IA=random.randrange(0,8)  #trying for looping test, need to change with alogrythm
-        board[choix_IA]=signe
+        #     #IA temporaire
+        # choix_IA=random.randrange(0,8)       #valeur retourné par la fonction a changer
+        # while board[choix_IA]==signe or board[choix_IA]==signe_joueur:
+        #     choix_IA=random.randrange(0,8) #make an or with if
+        # # elif board[choix_IA]==signe_joueur:
+        #     choix_IA=random.randrange(0,8)  #trying for looping test, need to change with alogrythm
+        # board[choix_IA]=signe
     #____________________________________________________________________________________
 
             #IA fonction lvl 0 - randomness
@@ -224,27 +247,14 @@ elif mode_de_jeu_reponse=="N":
         #     while board[choix_IA]==signe or board[choix_IA]==signe_joueur: #tant que le chiffre de lia est egale a son sign ou celui du joueur
         #         choix_IA=random.randrange(0,8) #make an or with if --  continue de chosir
         #     return choix_IA # retourne le choix de l'emplacement
-                #else retrn false to add
+        #         #else retrn false to add
         # choix_IA=ia(board,signe) #variable conentant l'emplacement updated
+        # #need this last one activated
     #_________________________________________________________________________________
 
             # IA fonction lvl 1 - most played placement
 
-        # def ia(board,signe):
-        #     if board[4]==variable_vide:
-        #         choix_IA=4
-        #     elif (board[0]==variable_vide or board[2]==variable_vide or board [6]==variable_vide or board[8]==variable_vide): #choose 8
-        #             choix_IA=random.choice(corner)
-        #             while board[choix_IA]==signe or board[choix_IA]==signe_joueur:
-        #                 choix_IA=random.choice(corner)
-        #     else:
-        #         choix_IA=random.choice(center)
-        #         while board[choix_IA]==signe or board[choix_IA]==signe_joueur:
-        #                 choix_IA=random.choice(center)
-            
-        #     return choix_IA
-                #else return false to add
-        # choix_IA=ia(board,signe)
+
 
     #_________________________________________________________________________________________
 
@@ -281,8 +291,10 @@ elif mode_de_jeu_reponse=="N":
     #_________________________________________________________________________ 
 
     #condition de placement choix ia
-        # if board[choix_IA]==variable_vide: #
-        # board[choix_IA]=signe     /!\ actuvate for working
+        ia1(board,signe)
+
+        if board[choix_IA]==variable_vide: #
+            board[choix_IA]=signe  #   /!\ actuvate for working
 
 
         print("Tour :",tour, "Ai choix :",choix_IA)
