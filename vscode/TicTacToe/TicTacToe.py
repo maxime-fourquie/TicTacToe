@@ -53,6 +53,7 @@ def template(mur):
     print()
 
 def draw_board(board):
+    """docstring commentaire fonction"""
     print(mur,board[0],mur,board[1],mur,board[2],mur) 
     print(mur,board[3],mur,board[4],mur,board[5],mur)
     print(mur,board[6],mur,board[7],mur,board[8],mur)
@@ -85,7 +86,7 @@ if mode_de_jeu_reponse=="Y": #creer variation de reponse
         signe_joueur2=signO
        # print("sj2o",signe_joueur2) #delete later
 
-    print("player 1 sign :", signe_joueur1,"\nPlayer 2 sign :", signe_joueur2)
+    print(f"player 1 sign :{signe_joueur1}\nPlayer 2 sign : {signe_joueur2}")
     print("________________________________________")
     print()
     while tour <10:
@@ -107,8 +108,9 @@ if mode_de_jeu_reponse=="Y": #creer variation de reponse
 
         draw_board(board)
 
-        if (((board[0]==signe_joueur1 and board[1]==signe_joueur1 and board[2])==signe_joueur1) or
-        ((board[3]==signe_joueur1 and board[4]==signe_joueur1 and board[5])==signe_joueur1) or
+        if (((board[0]==signe_joueur1 and board[1]==signe_joueur1 and board[2])==signe_joueur1) \
+            or((board[3]==signe_joueur1 and board[4]==signe_joueur1 and board[5])==signe_joueur1)\
+            or
         ((board[6]==signe_joueur1 and board[7]==signe_joueur1 and board[8])==signe_joueur1) or
         ((board[0]==signe_joueur1 and board[3]==signe_joueur1 and board[6])==signe_joueur1) or
         ((board[1]==signe_joueur1 and board[4]==signe_joueur1 and board[7])==signe_joueur1) or
