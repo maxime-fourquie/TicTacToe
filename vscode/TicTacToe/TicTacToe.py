@@ -21,9 +21,11 @@ board=[variable_vide,variable_vide,variable_vide,variable_vide,variable_vide,var
 #test______
 signe_joueur1=""
 signe_joueur2=""
+signAI=""
+
 signX="X"
 signO="O"
-#___________
+#___________ useless ?
 signe_joueur="O"
 signe="X"
 
@@ -89,12 +91,12 @@ if mode_de_jeu_reponse=="Y": #creer variation de reponse
     while tour <10:
         #player1 turn
         choix_joueur1=int(input("Player 1 turn \nselectionner emplacement: ")) #ajouter template
-        while board[choix_joueur1]==signe or board[choix_joueur1]==signe_joueur:
+        while board[choix_joueur1]==signe_joueur1 or board[choix_joueur1]==signe_joueur2:
             print("emplacement occupé") # try again a faire
             choix_joueur1=int(input("selectionner emplacement: "))
 
         if board[choix_joueur1]==variable_vide: #ajouter exeption si choix du joueur est >9
-            board[choix_joueur1]=signe_joueur
+            board[choix_joueur1]=signe_joueur1
 
 
 
@@ -105,14 +107,14 @@ if mode_de_jeu_reponse=="Y": #creer variation de reponse
 
         draw_board(board)
 
-        if (((board[0]==signe_joueur and board[1]==signe_joueur and board[2])==signe_joueur) or
-        ((board[3]==signe_joueur and board[4]==signe_joueur and board[5])==signe_joueur) or
-        ((board[6]==signe_joueur and board[7]==signe_joueur and board[8])==signe_joueur) or
-        ((board[0]==signe_joueur and board[3]==signe_joueur and board[6])==signe_joueur) or
-        ((board[1]==signe_joueur and board[4]==signe_joueur and board[7])==signe_joueur) or
-        ((board[2]==signe_joueur and board[5]==signe_joueur and board[8])==signe_joueur) or
-        ((board[0]==signe_joueur and board[4]==signe_joueur and board[8])==signe_joueur) or
-        ((board[2]==signe_joueur and board[4]==signe_joueur and board[6])==signe_joueur)):
+        if (((board[0]==signe_joueur1 and board[1]==signe_joueur1 and board[2])==signe_joueur1) or
+        ((board[3]==signe_joueur1 and board[4]==signe_joueur1 and board[5])==signe_joueur1) or
+        ((board[6]==signe_joueur1 and board[7]==signe_joueur1 and board[8])==signe_joueur1) or
+        ((board[0]==signe_joueur1 and board[3]==signe_joueur1 and board[6])==signe_joueur1) or
+        ((board[1]==signe_joueur1 and board[4]==signe_joueur1 and board[7])==signe_joueur1) or
+        ((board[2]==signe_joueur1 and board[5]==signe_joueur1 and board[8])==signe_joueur1) or
+        ((board[0]==signe_joueur1 and board[4]==signe_joueur1 and board[8])==signe_joueur1) or
+        ((board[2]==signe_joueur1 and board[4]==signe_joueur1 and board[6])==signe_joueur1)):
             print("Player 1 win")
             break
         tour+=1
@@ -123,12 +125,12 @@ if mode_de_jeu_reponse=="Y": #creer variation de reponse
 
         #player 2 turn
         choix_joueur2=int(input("Player 2 turn \nselectionner emplacement: ")) #ajouter template
-        while board[choix_joueur2]==signe or board[choix_joueur2]==signe_joueur:
+        while board[choix_joueur2]==signe_joueur1 or board[choix_joueur2]==signe_joueur2:
             print("emplacement occupé") # try again a faire
             choix_joueur2=int(input("selectionner emplacement: "))
 
         if board[choix_joueur2]==variable_vide: #ajouter exeption si choix du joueur est >9
-            board[choix_joueur2]=signe
+            board[choix_joueur2]=signe_joueur2
 
 
 
@@ -139,15 +141,15 @@ if mode_de_jeu_reponse=="Y": #creer variation de reponse
  
         draw_board(board)
 
-        if (((board[0]==signe and board[1]==signe and board[2])==signe) or
+        if (((board[0]==signe_joueur2 and board[1]==signe_joueur2 and board[2])==signe_joueur2) or
 
-        ((board[3]==signe and board[4]==signe and board[5])==signe) or
-        ((board[6]==signe and board[7]==signe and board[8])==signe) or
-        ((board[0]==signe and board[3]==signe and board[6])==signe) or
-        ((board[1]==signe and board[4]==signe and board[7])==signe) or
-        ((board[2]==signe and board[5]==signe and board[8])==signe) or
-        ((board[0]==signe and board[4]==signe and board[8])==signe) or
-        ((board[2]==signe and board[4]==signe and board[6])==signe)):
+        ((board[3]==signe_joueur2 and board[4]==signe_joueur2 and board[5])==signe_joueur2) or
+        ((board[6]==signe_joueur2 and board[7]==signe_joueur2 and board[8])==signe_joueur2) or
+        ((board[0]==signe_joueur2 and board[3]==signe_joueur2 and board[6])==signe_joueur2) or
+        ((board[1]==signe_joueur2 and board[4]==signe_joueur2 and board[7])==signe_joueur2) or
+        ((board[2]==signe_joueur2 and board[5]==signe_joueur2 and board[8])==signe_joueur2) or
+        ((board[0]==signe_joueur2 and board[4]==signe_joueur2 and board[8])==signe_joueur2) or
+        ((board[2]==signe_joueur2 and board[4]==signe_joueur2 and board[6])==signe_joueur2)):
             print("Player 2 win")
             break
         tour+=1
@@ -158,6 +160,15 @@ elif mode_de_jeu_reponse=="N":
 
     #choosing difficulty - not working
     # diffuclty=input("Choose IA difficulty 0/1/2")
+    signe_joueur1=input("Player 1 choose a sign: O or X\n")
+    if signe_joueur1==signO:
+        signe_AI=signX
+    else:
+        signe_joueur1==signX 
+        signe_AI=signO
+
+    print("player 1 sign :", signe_joueur1,"\nAI sign :", signe_AI)
+
 
 
     template(mur)
@@ -166,18 +177,18 @@ elif mode_de_jeu_reponse=="N":
 #_______________________________________________________________
         #player1 turn
         choix_joueur1=int(input("Player 1 turn\nselectionner emplacement: ")) #ajouter template 
-        while board[choix_joueur1]==signe or board[choix_joueur1]==signe_joueur:
+        while board[choix_joueur1]==signe_joueur1 or board[choix_joueur1]==signe_AI:
             print("emplacement occupé") # try again a faire
             choix_joueur1=int(input("selectionner emplacement: "))
 
         if board[choix_joueur1]==variable_vide: #ajouter exeption si choix du joueur est >9
-            board[choix_joueur1]=signe_joueur
+            board[choix_joueur1]=signe_joueur1
 
 
 
         print("________________________________________")
         print()
-        print("Tour :",tour, "Joueur1 choix :",choix_joueur1)
+        print("Tour :",tour, "Joueur1 choix :",choix_joueur1) #delete ?
 
 
         draw_board(board)
@@ -217,20 +228,21 @@ elif mode_de_jeu_reponse=="N":
     #______________________________________________________________
       # #winning condition for player - make a fonction later
 
-        if (((board[0]==signe_joueur and board[1]==signe_joueur and board[2])==signe_joueur) or
-        ((board[3]==signe_joueur and board[4]==signe_joueur and board[5])==signe_joueur) or
-        ((board[6]==signe_joueur and board[7]==signe_joueur and board[8])==signe_joueur) or
-        ((board[0]==signe_joueur and board[3]==signe_joueur and board[6])==signe_joueur) or
-        ((board[1]==signe_joueur and board[4]==signe_joueur and board[7])==signe_joueur) or
-        ((board[2]==signe_joueur and board[5]==signe_joueur and board[8])==signe_joueur) or
-        ((board[0]==signe_joueur and board[4]==signe_joueur and board[8])==signe_joueur) or
-        ((board[2]==signe_joueur and board[4]==signe_joueur and board[6])==signe_joueur)):
+        if (((board[0]==signe_joueur1 and board[1]==signe_joueur1 and board[2])==signe_joueur1) or
+        ((board[3]==signe_joueur1 and board[4]==signe_joueur1 and board[5])==signe_joueur1) or
+        ((board[6]==signe_joueur1 and board[7]==signe_joueur1 and board[8])==signe_joueur1) or
+        ((board[0]==signe_joueur1 and board[3]==signe_joueur1 and board[6])==signe_joueur1) or
+        ((board[1]==signe_joueur1 and board[4]==signe_joueur1 and board[7])==signe_joueur1) or
+        ((board[2]==signe_joueur1 and board[5]==signe_joueur1 and board[8])==signe_joueur1) or
+        ((board[0]==signe_joueur1 and board[4]==signe_joueur1 and board[8])==signe_joueur1) or
+        ((board[2]==signe_joueur1 and board[4]==signe_joueur1 and board[6])==signe_joueur1)):
             print("Player 1 win")
             break
         tour+=1
 
         if tour>9:
-            print("egalié")        
+            print("Draw")        
+            break
     #____________________________________________________________________________________
         #     #IA temporaire
         # choix_IA=random.randrange(0,8)       #valeur retourné par la fonction a changer
@@ -255,21 +267,21 @@ elif mode_de_jeu_reponse=="N":
 
             # IA fonction lvl 1 - most played placement
 
-        def ia(board,signe):
+        def ia(board,signe_AI):
             if board[4]==variable_vide:
                 choix_IA=4
             elif (board[0]==variable_vide or board[2]==variable_vide or board [6]==variable_vide or board[8]==variable_vide): #choose 8
                     choix_IA=random.choice(corner)
-                    while board[choix_IA]==signe or board[choix_IA]==signe_joueur:
+                    while board[choix_IA]==signe_joueur1 or board[choix_IA]==signe_AI:
                         choix_IA=random.choice(corner)
             else:
                 choix_IA=random.choice(center)
-                while board[choix_IA]==signe or board[choix_IA]==signe_joueur:
+                while board[choix_IA]==signe_joueur1 or board[choix_IA]==signe_AI:
                         choix_IA=random.choice(center)
             
             return choix_IA
                #else return false to add
-        choix_IA=ia(board,signe) #activate this
+        choix_IA=ia(board,signe_AI) #activate this
 
     #_________________________________________________________________________________________
 
@@ -350,7 +362,7 @@ elif mode_de_jeu_reponse=="N":
 
     #condition de placement choix ia
         if board[choix_IA]==variable_vide: #
-            board[choix_IA]=signe  #   /!\ actuvate for working
+            board[choix_IA]=signe_AI  #   /!\ actuvate for working
 
 
         print("Tour :",tour, "Ai choix :",choix_IA)
@@ -359,15 +371,14 @@ elif mode_de_jeu_reponse=="N":
 
 
         #winning condition for ai - make a focntion later
-        if (((board[0]==signe and board[1]==signe and board[2])==signe) or
-
-        ((board[3]==signe and board[4]==signe and board[5])==signe) or
-        ((board[6]==signe and board[7]==signe and board[8])==signe) or
-        ((board[0]==signe and board[3]==signe and board[6])==signe) or
-        ((board[1]==signe and board[4]==signe and board[7])==signe) or
-        ((board[2]==signe and board[5]==signe and board[8])==signe) or
-        ((board[0]==signe and board[4]==signe and board[8])==signe) or
-        ((board[2]==signe and board[4]==signe and board[6])==signe)):
+        if (((board[0]==signe_AI and board[1]==signe_AI and board[2])==signe_AI) or
+        ((board[3]==signe_AI and board[4]==signe_AI and board[5])==signe_AI) or
+        ((board[6]==signe_AI and board[7]==signe_AI and board[8])==signe_AI) or
+        ((board[0]==signe_AI and board[3]==signe_AI and board[6])==signe_AI) or
+        ((board[1]==signe_AI and board[4]==signe_AI and board[7])==signe_AI) or
+        ((board[2]==signe_AI and board[5]==signe_AI and board[8])==signe_AI) or
+        ((board[0]==signe_AI and board[4]==signe_AI and board[8])==signe_AI) or
+        ((board[2]==signe_AI and board[4]==signe_AI and board[6])==signe_AI)):
             print("AI win")
             break
         tour+=1
