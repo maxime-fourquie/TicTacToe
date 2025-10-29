@@ -1,150 +1,102 @@
-#creer le plateau de jeu V
-#definir les emplacements (0-9) V
-#definir joueurs
-#attribuer signe
-#definit tour
+import random 
 
-#variable tour
-#variable joueur 1
-#variable joureur 2/IA  algorithme
-
-#creer Ia algorithme
-
-
-import random  #useless later
-
-#Variable
+#Variables
 variable_vide=" "
-mur= "|"
+mur="|"
 tour=1
 board=[variable_vide,variable_vide,variable_vide,variable_vide,variable_vide,variable_vide,variable_vide,variable_vide,variable_vide]
-#test______
 signe_joueur1=""
 signe_joueur2=""
 signe=""
-
 signX="X"
 signO="O"
-#___________ useless ?
-# signe_joueur="O"
-# signe="X"
-
 choix_IA=""
 corner=(0,2,6,8)
 center=(1,3,5,7)
-row1=(0,1,2)
-#diffuclty="" #not used
-row2=(3,4,5) 
-row3=(6,7,8)
 
-
-
-#laisser le choix du signe ? TO DO lat8
-
-
-
-# elif mode_de_jeu_reponse=="N":
-
-#template 
-def template(mur):
+def template(mur): #template for grid
     print(mur,"0",mur,"1",mur,"2",mur) 
     print(mur,"3",mur,"4",mur,"5",mur)
     print(mur,"6",mur,"7",mur,"8",mur)
     print()
 
-def draw_board(board):
+def draw_board(board): 
     """docstring commentaire fonction"""
     print(mur,board[0],mur,board[1],mur,board[2],mur) 
     print(mur,board[3],mur,board[4],mur,board[5],mur)
     print(mur,board[6],mur,board[7],mur,board[8],mur)
 
+input("TiTacToe Game modes :\n-2 Players\n-Vs AI\n Press enter to continue") 
+mode_de_jeu_reponse=input("Do you want to play the 2 players mode ? Y/N \n") #choose game mode
 
-#choix du mode jeu
-#2joueurs ou ia
-# input("TiTacToe \n mode de jeu :\n-2 Players\n-Vs AI") # mettre en anglais
-# input()
-mode_de_jeu_reponse=input("want to play 2 players mode ? Y/N\n")
+#load 2 player mode
+if mode_de_jeu_reponse=="Y": 
+    print("________________________________________")
+    print("Loading 2 player mode")
+    print()
 
-
-if mode_de_jeu_reponse=="Y": #creer variation de reponse
-    
-    #load 2 player mode
-    print("loading 2 player mode")
-    template(mur)
-
-#choose sign
     #player 1 choose a signe
-        #attribuer le sihne a j1
     signe_joueur1=input("Player 1 choose a sign: O or X\n")
     if signe_joueur1==signO:
-       # print("sj1o",signe_joueur1)
         signe_joueur2=signX
-       # print("sj2x",signe_joueur2)
-    else:
-        signe_joueur1==signX 
-       # print("sj1x",signe_joueur1)
+    elif signe_joueur1==signX: 
         signe_joueur2=signO
-       # print("sj2o",signe_joueur2) #delete later
+    else:
+        input("Invalide input. Quitting")
 
-    print(f"player 1 sign :{signe_joueur1}\nPlayer 2 sign : {signe_joueur2}")
+    print("player 1 sign :",signe_joueur1,"\nPlayer 2 sign: ",signe_joueur2)
     print("________________________________________")
     print()
+    template(mur)
+
+    #game start max 10 turn
     while tour <10:
-        #player1 turn
-        choix_joueur1=int(input("Player 1 turn \nselectionner emplacement: ")) #ajouter template
-        while board[choix_joueur1]==signe_joueur1 or board[choix_joueur1]==signe_joueur2:
-            print("emplacement occupé") # try again a faire
-            choix_joueur1=int(input("selectionner emplacement: "))
+        #player 1 turn
+        choix_joueur1=int(input("Player 1 turn \n Choose a number(0-8): ")) #ask the player for a number
+        while board[choix_joueur1]==signe_joueur1 or board[choix_joueur1]==signe_joueur2: #if signe already used on the board, ask again
+            print("Already used") 
+            choix_joueur1=int(input(" Choose a number(0-8): "))
 
-        if board[choix_joueur1]==variable_vide: #ajouter exeption si choix du joueur est >9
+        if board[choix_joueur1]==variable_vide: 
             board[choix_joueur1]=signe_joueur1
-
-
 
         print("________________________________________")
         print()
-        # print("Tour :",tour, "Joueur1 choix :",choix_joueur1)
-
-
+        print("Turn :",tour, "| Player 1 choice :",choix_joueur1)
         draw_board(board)
 
-        if (((board[0]==signe_joueur1 and board[1]==signe_joueur1 and board[2])==signe_joueur1) \
-            or((board[3]==signe_joueur1 and board[4]==signe_joueur1 and board[5])==signe_joueur1)\
-            or
-        ((board[6]==signe_joueur1 and board[7]==signe_joueur1 and board[8])==signe_joueur1) or
-        ((board[0]==signe_joueur1 and board[3]==signe_joueur1 and board[6])==signe_joueur1) or
-        ((board[1]==signe_joueur1 and board[4]==signe_joueur1 and board[7])==signe_joueur1) or
-        ((board[2]==signe_joueur1 and board[5]==signe_joueur1 and board[8])==signe_joueur1) or
-        ((board[0]==signe_joueur1 and board[4]==signe_joueur1 and board[8])==signe_joueur1) or
-        ((board[2]==signe_joueur1 and board[4]==signe_joueur1 and board[6])==signe_joueur1)):
-            print("Player 1 win")
+        #winning condition for player 1
+        if (((board[0]==signe_joueur1 and board[1]==signe_joueur1 and board[2])==signe_joueur1)or
+            ((board[3]==signe_joueur1 and board[4]==signe_joueur1 and board[5])==signe_joueur1)or
+            ((board[6]==signe_joueur1 and board[7]==signe_joueur1 and board[8])==signe_joueur1) or
+            ((board[0]==signe_joueur1 and board[3]==signe_joueur1 and board[6])==signe_joueur1) or
+            ((board[1]==signe_joueur1 and board[4]==signe_joueur1 and board[7])==signe_joueur1) or
+            ((board[2]==signe_joueur1 and board[5]==signe_joueur1 and board[8])==signe_joueur1) or
+            ((board[0]==signe_joueur1 and board[4]==signe_joueur1 and board[8])==signe_joueur1) or
+            ((board[2]==signe_joueur1 and board[4]==signe_joueur1 and board[6])==signe_joueur1)):
+            print("Player 1 win !")
             break
         tour+=1
 
         if tour>9:
-            print("Draw")
+            print("Draw !")
             break
 
         #player 2 turn
-        choix_joueur2=int(input("Player 2 turn \nselectionner emplacement: ")) #ajouter template
+        choix_joueur2=int(input("Player 2 turn \n Choose a number(0-8): "))
         while board[choix_joueur2]==signe_joueur1 or board[choix_joueur2]==signe_joueur2:
-            print("emplacement occupé") # try again a faire
-            choix_joueur2=int(input("selectionner emplacement: "))
+            print("Already used")
+            choix_joueur2=int(input(" Choose a number(0-8): "))
 
-        if board[choix_joueur2]==variable_vide: #ajouter exeption si choix du joueur est >9
+        if board[choix_joueur2]==variable_vide: 
             board[choix_joueur2]=signe_joueur2
-
-
 
         print("________________________________________")
         print()
-        # print("Tour :",tour, "Joueur2 choix :",choix_joueur2)
-
- 
+        print("Turn :",tour, "| Player 2 choice :",choix_joueur2)
         draw_board(board)
-
+        #winning condition for Player 2
         if (((board[0]==signe_joueur2 and board[1]==signe_joueur2 and board[2])==signe_joueur2) or
-
         ((board[3]==signe_joueur2 and board[4]==signe_joueur2 and board[5])==signe_joueur2) or
         ((board[6]==signe_joueur2 and board[7]==signe_joueur2 and board[8])==signe_joueur2) or
         ((board[0]==signe_joueur2 and board[3]==signe_joueur2 and board[6])==signe_joueur2) or
@@ -152,84 +104,46 @@ if mode_de_jeu_reponse=="Y": #creer variation de reponse
         ((board[2]==signe_joueur2 and board[5]==signe_joueur2 and board[8])==signe_joueur2) or
         ((board[0]==signe_joueur2 and board[4]==signe_joueur2 and board[8])==signe_joueur2) or
         ((board[2]==signe_joueur2 and board[4]==signe_joueur2 and board[6])==signe_joueur2)):
-            print("Player 2 win")
+            print("Player 2 win !")
             break
         tour+=1
     
     #game mode VS IA
 elif mode_de_jeu_reponse=="N":
+    print("________________________________________")
     print("loading VS IA mode")
-
-    #choosing difficulty - not working
-    # diffuclty=input("Choose IA difficulty 0/1/2")
+    print()
+    #choosing a sign
     signe_joueur1=input("Player 1 choose a sign: O or X\n")
     if signe_joueur1==signO:
         signe=signX
-    else:
-        signe_joueur1==signX 
+    elif signe_joueur1==signX: 
         signe=signO
+    else:
+        input("Invalide input. Quitting")
 
-    print("player 1 sign :", signe_joueur1,"\nAI sign :", signe)
-
-
-
+    print("player 1 sign :", signe_joueur1,"\n AI sign :", signe)
+    print("________________________________________")
+    print()
     template(mur)
-    while tour <10: #le jeu continu tant que 9 tour ne sont pas passé
 
-#_______________________________________________________________
+    #game start
+    while tour <10: 
         #player1 turn
-        choix_joueur1=int(input("Player 1 turn\nselectionner emplacement: ")) #ajouter template 
+        choix_joueur1=int(input("Player 1 turn\n Choose a number(0-8): ")) 
         while board[choix_joueur1]==signe_joueur1 or board[choix_joueur1]==signe:
-            print("emplacement occupé") # try again a faire
-            choix_joueur1=int(input("selectionner emplacement: "))
+            print("Already used")
+            choix_joueur1=int(input(" Choose a number(0-8): "))
 
-        if board[choix_joueur1]==variable_vide: #ajouter exeption si choix du joueur est >9
+        if board[choix_joueur1]==variable_vide: 
             board[choix_joueur1]=signe_joueur1
-
-
-
+            
         print("________________________________________")
         print()
-        print("Tour :",tour, "Joueur1 choix :",choix_joueur1) #delete ?
-
-
+        print("Turn :",tour, "| Player 1 choice :",choix_joueur1)
         draw_board(board)
-        
 
-        
-    #__________________________________________________________
-    #fonction winner wip
-        # # def winner():
-        # for i in range(0,9,3): #ligne check
-        #     if board[i] == board[i+1] == board[i+2] !=variable_vide:
-        #         print("ligne win")
-        #         # return board[i] #winning symbole
-        #         print(board)
-        #         #break
-        # for i in range(3): #colonne check
-        #     if board[i] == board[i+3] == board[i+6] !=variable_vide:
-        #         print("colonne win")
-        #         # return board[i]
-        #         #break
-        
-        # if board[0] == board[4] == board[8] != variable_vide: #check diagonal
-        #     # return board[0]
-        # if board[2] == board[4] == board[6] != variable_vide: #check diagonal
-        #     # return board[2]
-        
-        # # return None
-        
-        # if winner(board)==signe_joueur:
-        #     print("winner : joueur 1")
-        # elif winner(board)==signe:
-        #     print("winner : IA")
-    
-
-
-      
-    #______________________________________________________________
-      # #winning condition for player - make a fonction later
-
+        #winning condition for player 1
         if (((board[0]==signe_joueur1 and board[1]==signe_joueur1 and board[2])==signe_joueur1) or
         ((board[3]==signe_joueur1 and board[4]==signe_joueur1 and board[5])==signe_joueur1) or
         ((board[6]==signe_joueur1 and board[7]==signe_joueur1 and board[8])==signe_joueur1) or
@@ -238,71 +152,122 @@ elif mode_de_jeu_reponse=="N":
         ((board[2]==signe_joueur1 and board[5]==signe_joueur1 and board[8])==signe_joueur1) or
         ((board[0]==signe_joueur1 and board[4]==signe_joueur1 and board[8])==signe_joueur1) or
         ((board[2]==signe_joueur1 and board[4]==signe_joueur1 and board[6])==signe_joueur1)):
-            print("Player 1 win")
+            print("Player 1 win !")
             break
         tour+=1
 
         if tour>9:
             print("Draw")        
             break
-    #____________________________________________________________________________________
-        #     #IA temporaire
-        # choix_IA=random.randrange(0,8)       #valeur retourné par la fonction a changer
-        # while board[choix_IA]==signe or board[choix_IA]==signe_joueur:
-        #     choix_IA=random.randrange(0,8) #make an or with if
-        # # elif board[choix_IA]==signe_joueur:
-        #     choix_IA=random.randrange(0,8)  #trying for looping test, need to change with alogrythm
-        # board[choix_IA]=signe
-    #____________________________________________________________________________________
-
-            #IA fonction lvl 0 - randomness
-
-        # def ia(board,signe): #simple ia
-        #     choix_IA=random.randrange(0,8) #choix de lia est egale a un chiffre leatoire entre 0 et 8
-        #     while board[choix_IA]==signe or board[choix_IA]==signe_joueur: #tant que le chiffre de lia est egale a son sign ou celui du joueur
-        #         choix_IA=random.randrange(0,8) #make an or with if --  continue de chosir
-        #     return choix_IA # retourne le choix de l'emplacement
-        #         #else retrn false to add
-        # choix_IA=ia(board,signe) #variable conentant l'emplacement updated
-        # #need this last one activated
-    #_________________________________________________________________________________
-
-            # IA fonction lvl 1 - most played placement
-
+       
+        #AI turn     (IA lvl 2 - most played placement)
         def ia(board,signe):
             if board[4]==variable_vide:
                 choix_IA=4
-            elif (board[0]==variable_vide or board[2]==variable_vide or board [6]==variable_vide or board[8]==variable_vide): #choose 8
+            elif (board[0]==variable_vide or board[2]==variable_vide or board [6]==variable_vide or board[8]==variable_vide):
                     choix_IA=random.choice(corner)
                     while board[choix_IA]==signe_joueur1 or board[choix_IA]==signe:
                         choix_IA=random.choice(corner)
-            else:
-                choix_IA=random.choice(center)
-                while board[choix_IA]==signe_joueur1 or board[choix_IA]==signe:
+            elif (board[1]==variable_vide or board[3]==variable_vide or board [5]==variable_vide or board[7]==variable_vide):
+                    choix_IA=random.choice(center)
+                    while board[choix_IA]==signe_joueur1 or board[choix_IA]==signe:
                         choix_IA=random.choice(center)
-            
+            else:
+                return False
             return choix_IA
-               #else return false to add
-        choix_IA=ia(board,signe) #activate this
+        choix_IA=ia(board,signe) 
 
-            #work on the return else
-    #_________________________________________________________________________________________
+        #choice of placement of IA
+        if board[choix_IA]==variable_vide: 
+            board[choix_IA]=signe  
 
-            # ia fonction lvl2 - blocking
+        print("________________________________________")
+        print()
+        print("Turn :",tour, "| Ai choice :",choix_IA)
+        draw_board(board)
 
-    # #comment ia choose to block player
+        #winning condition for AI 
+        if (((board[0]==signe and board[1]==signe and board[2])==signe) or
+        ((board[3]==signe and board[4]==signe and board[5])==signe) or
+        ((board[6]==signe and board[7]==signe and board[8])==signe) or
+        ((board[0]==signe and board[3]==signe and board[6])==signe) or
+        ((board[1]==signe and board[4]==signe and board[7])==signe) or
+        ((board[2]==signe and board[5]==signe and board[8])==signe) or
+        ((board[0]==signe and board[4]==signe and board[8])==signe) or
+        ((board[2]==signe and board[4]==signe and board[6])==signe)):
+            print("AI win !")
+            break
+        tour+=1
 
-       
-        # def ia(board,signe):
-            #try to win
-            # if board[0]==signe_joueur or board[1]==signe_joueur or board[2] ==signe_joueur:
-            #     choix_IA=random.choice(row1)
-            # elif board[3]==signe_joueur or board[4]==signe_joueur or board[5] ==signe_joueur:
-            #     choix_IA=random.choice(row2)
-            # elif board[6]==signe_joueur or board[7]==signe_joueur or board[8] ==signe_joueur:
-            #     choix_IA=random.choice(row3)
+else:
+    print("incorret input. Quitting")
 
 
+
+    #____________________________________________________________________________________
+
+        #     #IA temporaire
+        # if difficulty==0:
+        #     print("diffuclty selected :",difficulty)
+
+        #     choix_IA=random.randrange(0,8)       #valeur retourné par la fonction a changer
+        #     while board[choix_IA]==signe or board[choix_IA]==signe_joueur1:
+        #         choix_IA=random.randrange(0,8) #make an or with if
+        #     # elif board[choix_IA]==signe_joueur:
+        #         choix_IA=random.randrange(0,8)  #trying for looping test, need to change with alogrythm
+        #     board[choix_IA]=signe
+    #____________________________________________________________________________________
+
+            #IA fonction lvl 1 - randomness
+        # if difficulty==1:
+        #     print("diffuclty selected :",difficulty)
+
+        #     def ia(board,signe): #simple ia
+        #         choix_IA=random.randrange(0,8) #choix de lia est egale a un chiffre leatoire entre 0 et 8
+        #         if board[choix_IA]==signe or board[choix_IA]==signe_joueur1: #tant que le chiffre de lia est egale a son sign ou celui du joueur
+        #             choix_IA=random.randrange(0,8) #make an or with if --  continue de chosir
+        #         else:
+        #             return False
+        #         return choix_IA # retourne le choix de l'emplacement
+        #             #else retrn false to addN
+        #     choix_IA=ia(board,signe) #variable conentant l'emplacement updated
+        #     #need this last one activated
+    #_________________________________________________________________________________
+        
+
+
+    # # ia  block player
+    
+    #     def ia(board,signe):
+    #         # 
+
+    #         if board[4]==variable_vide:
+    #             choix_IA=4
+    #         elif (board[0]==variable_vide or board[2]==variable_vide or board [6]==variable_vide or board[8]==variable_vide): #choose 8
+    #                 choix_IA=random.choice(corner)
+    #                 while board[choix_IA]==signe_joueur1 or board[choix_IA]==signe:
+    #                     choix_IA=random.choice(corner)
+    #         elif (board[1]==variable_vide or board[3]==variable_vide or board [5]==variable_vide or board[7]==variable_vide):
+    #                 choix_IA=random.choice(center)
+    #                 while board[choix_IA]==signe_joueur1 or board[choix_IA]==signe:
+    #                     choix_IA=random.choice(center)
+    #         else:
+    #             return False
+    #         return choix_IA
+    #     choix_IA=ia(board,signe) #activate this
+    # #     def ia(board,signe):
+    # #         if signe_joueur1 in row1:
+    # #             print("what")
+
+
+    #         # if board[0]==signe_joueur1 or board[1]==signe_joueur1 or board[2] ==signe_joueur1:
+    #         #     choix_IA=random.choice(row1)
+    #         # elif board[3]==signe_joueur1 or board[4]==signe_joueur1 or board[5] ==signe_joueur1:
+    #         #     choix_IA=random.choice(row2)
+    #         # elif board[6]==signe_joueur1 or board[7]==signe_joueur1 or board[8] ==signe_joueur1:
+    #         #     choix_IA=random.choice(row3)
+
+    #     ia(board,signe)
             
             # if board[4]==variable_vide:
             #     choix_IA=4
@@ -360,48 +325,3 @@ elif mode_de_jeu_reponse=="N":
                     #play it (random?)
                 #else:
                     #play 1357 (random?)
-
-    #_________________________________________________________________________ 
-
-    #condition de placement choix ia
-        if board[choix_IA]==variable_vide: #
-            board[choix_IA]=signe  #   /!\ actuvate for working
-
-
-        print("Tour :",tour, "Ai choix :",choix_IA)
-
-        draw_board(board)
-
-
-        #winning condition for ai - make a focntion later
-        if (((board[0]==signe and board[1]==signe and board[2])==signe) or
-        ((board[3]==signe and board[4]==signe and board[5])==signe) or
-        ((board[6]==signe and board[7]==signe and board[8])==signe) or
-        ((board[0]==signe and board[3]==signe and board[6])==signe) or
-        ((board[1]==signe and board[4]==signe and board[7])==signe) or
-        ((board[2]==signe and board[5]==signe and board[8])==signe) or
-        ((board[0]==signe and board[4]==signe and board[8])==signe) or
-        ((board[2]==signe and board[4]==signe and board[6])==signe)):
-            print("AI win")
-            break
-        tour+=1
-
-    #tryna do a winner fonction
-        # def winner():
-        # for i in range(0,9,3):
-        #     if board[i] == board[i+1] == board[i+2] !=variable_vide:
-        #         print(board[i])
-
-
-
-
-
-        #condition exeko a faire
-
-
-
-
-
-
-        
-
