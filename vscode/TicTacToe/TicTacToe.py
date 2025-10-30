@@ -12,24 +12,24 @@ signX="X"
 signO="O"
 AI_choice=""
 corner=(0,2,6,8)
-center=(1,3,5,7)
+middle=(1,3,5,7)
 
-def template(wall): #template for grid
+def template(wall): #possible placement on the board
     print(wall,"0",wall,"1",wall,"2",wall) 
     print(wall,"3",wall,"4",wall,"5",wall)
     print(wall,"6",wall,"7",wall,"8",wall)
     print()
 
 def draw_board(board): 
-    """docstring commentaire fonction"""
+    """fonction that print the board with sign"""
     print(wall,board[0],wall,board[1],wall,board[2],wall) 
     print(wall,board[3],wall,board[4],wall,board[5],wall)
     print(wall,board[6],wall,board[7],wall,board[8],wall)
 
-input("TiTacToe Game modes :\n-2 Players\n-Vs AI\n Press enter to continue") 
+input("TiTacToe Game modes :\n-2 Players\n-Vs AI\n Press enter to continue") #introduction
 game_mode_answer=input("Do you want to play the 2 players mode ? Y/N \n") #choose game mode
 
-#load 2 player mode
+#game mode 2 players
 if game_mode_answer=="Y": 
     print("________________________________________")
     print("Loading 2 player mode")
@@ -51,7 +51,7 @@ if game_mode_answer=="Y":
 
     #game start max 10 turn
     while turn <10:
-        #player 1 turn
+    #player 1 turn
         player1_choice=int(input("Player 1 turn \n Choose a number(0-8): ")) #ask the player for a number
         while board[player1_choice]==player1_sign or board[player1_choice]==player2_sign: #if signe already used on the board, ask again
             print("Already used") 
@@ -82,7 +82,7 @@ if game_mode_answer=="Y":
             print("Draw !")
             break
 
-        #player 2 turn
+    #player 2 turn
         player2_choice=int(input("Player 2 turn \n Choose a number(0-8): "))
         while board[player2_choice]==player1_sign or board[player2_choice]==player2_sign:
             print("Already used")
@@ -108,7 +108,7 @@ if game_mode_answer=="Y":
             break
         turn+=1
     
-    #game mode VS IA
+#game mode VS IA
 elif game_mode_answer=="N":
     print("________________________________________")
     print("loading VS IA mode")
@@ -162,16 +162,16 @@ elif game_mode_answer=="N":
        
         #AI turn     (IA lvl 2 - most played placement)
         def ia(board,signe):
-            if board[4]==empty:
+            if board[4]==empty: #if placement 4 possible, do it
                 AI_choice=4
-            elif (board[0]==empty or board[2]==empty or board [6]==empty or board[8]==empty):
+            elif (board[0]==empty or board[2]==empty or board [6]==empty or board[8]==empty): #else randomly take corner until there is none left
                     AI_choice=random.choice(corner)
-                    while board[AI_choice]==player1_sign or board[AI_choice]==signe:
+                    while board[AI_choice]==player1_sign or board[AI_choice]==signe: #while there is a sign there, ai choose again
                         AI_choice=random.choice(corner)
-            elif (board[1]==empty or board[3]==empty or board [5]==empty or board[7]==empty):
-                    AI_choice=random.choice(center)
+            elif (board[1]==empty or board[3]==empty or board [5]==empty or board[7]==empty): #else randomly take middle
+                    AI_choice=random.choice(middle)
                     while board[AI_choice]==player1_sign or board[AI_choice]==signe:
-                        AI_choice=random.choice(center)
+                        AI_choice=random.choice(middle)
             else:
                 return False
             return AI_choice
@@ -187,7 +187,7 @@ elif game_mode_answer=="N":
         draw_board(board)
 
         #winning condition for AI 
-        if (((board[0]==signe and board[1]==signe and board[2])==signe) or
+        if (((board[0]==signe and board[1]==signe and board[2])==signe) or 
         ((board[3]==signe and board[4]==signe and board[5])==signe) or
         ((board[6]==signe and board[7]==signe and board[8])==signe) or
         ((board[0]==signe and board[3]==signe and board[6])==signe) or
@@ -248,9 +248,9 @@ else:
     #                 while board[AI_choice]==player1_sign or board[AI_choice]==signe:
     #                     AI_choice=random.choice(corner)
     #         elif (board[1]==variable_vide or board[3]==variable_vide or board [5]==variable_vide or board[7]==variable_vide):
-    #                 AI_choice=random.choice(center)
+    #                 AI_choice=random.choice(middle)
     #                 while board[AI_choice]==player1_sign or board[AI_choice]==signe:
-    #                     AI_choice=random.choice(center)
+    #                     AI_choice=random.choice(middle)
     #         else:
     #             return False
     #         return AI_choice
@@ -303,9 +303,9 @@ else:
             #         while board[AI_choice]==signe or board[AI_choice]==signe_joueur:
             #             AI_choice=random.choice(corner)
             # else:
-            #     AI_choice=random.choice(center)
+            #     AI_choice=random.choice(middle)
             #     while board[AI_choice]==signe or board[AI_choice]==signe_joueur:
-            #             AI_choice=random.choice(center)
+            #             AI_choice=random.choice(middle)
             
         #     return AI_choice #activate this
         #        #else return false to add
