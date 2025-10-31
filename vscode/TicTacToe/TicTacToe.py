@@ -79,7 +79,6 @@ def game_launch():
             input("Invalide input. Quitting")
             sys.exit()
             
-
         print("player 1 sign :",player1_sign,"\nPlayer 2 sign: ",player2_sign)
         print_line()
         template(wall)
@@ -134,6 +133,9 @@ def game_launch():
         player1_sign=""
         signe=""
 
+        #choosing difficulty
+        difficulty=0
+        difficulty=input("Choose difficulty (1/2):\n")
         #choosing a sign
         player1_sign=input("Player 1 choose a sign: O or X\n")
         if player1_sign==signO:
@@ -173,39 +175,63 @@ def game_launch():
             if turn>9:
                 print("Draw")        
                 game_launch() 
-        
-            #AI turn     (IA lvl 2 - most played placement)
-            def ia(board,signe):
-                AI_choice=""
-                corner=(0,2,6,8)
-                middle=(1,3,5,7)
-                if board[4]==empty: #if placement 4 possible, do it
-                    AI_choice=4
-                elif (board[0]==empty or board[2]==empty or board [6]==empty or board[8]==empty): #else randomly take corner until there is none left
-                        AI_choice=random.choice(corner)
-                        while board[AI_choice]==player1_sign or board[AI_choice]==signe: #while there is a sign there, ai choose again
+
+           #AI turn 
+            elif difficulty=="1":  # AI lvl1 - full random
+                def ia(board,signe):
+                    AI_choice=random.randrange(0,8)
+                    while board[AI_choice]==signe or board[AI_choice]==player1_sign: 
+                        AI_choice=random.randrange(0,8) 
+                    return AI_choice 
+                AI_choice=ia(board,signe) 
+
+                #choice of placement of IA
+                if board[AI_choice]==empty: 
+                    board[AI_choice]=signe  
+
+                print_line()
+                print("Turn :",turn, "| Ai choice :",AI_choice)
+                draw_board(board)
+
+                if is_ai_winning() ==True:
+                    print("AI win !")
+                    game_launch() #restart the game
+                turn+=1
+
+            elif difficulty=="2":# lvl 2 - most played placement
+                def ia(board,signe):
+                    AI_choice=""
+                    corner=(0,2,6,8)
+                    middle=(1,3,5,7)
+                    if board[4]==empty: #if placement 4 possible, do it
+                        AI_choice=4
+                    elif (board[0]==empty or board[2]==empty or board [6]==empty or board[8]==empty): #else randomly take corner until there is none left
                             AI_choice=random.choice(corner)
-                elif (board[1]==empty or board[3]==empty or board [5]==empty or board[7]==empty): #else randomly take middle
-                        AI_choice=random.choice(middle)
-                        while board[AI_choice]==player1_sign or board[AI_choice]==signe:
+                            while board[AI_choice]==player1_sign or board[AI_choice]==signe: #while there is a sign there, ai choose again
+                                AI_choice=random.choice(corner)
+                    elif (board[1]==empty or board[3]==empty or board [5]==empty or board[7]==empty): #else randomly take middle
                             AI_choice=random.choice(middle)
-                else:
-                    return False
-                return AI_choice
-            AI_choice=ia(board,signe) 
+                            while board[AI_choice]==player1_sign or board[AI_choice]==signe:
+                                AI_choice=random.choice(middle)
+                    else:
+                        return False
+                    return AI_choice
+                AI_choice=ia(board,signe) 
 
-            #choice of placement of IA
-            if board[AI_choice]==empty: 
-                board[AI_choice]=signe  
+                #choice of placement of IA
+                if board[AI_choice]==empty: 
+                    board[AI_choice]=signe  
 
-            print_line()
-            print("Turn :",turn, "| Ai choice :",AI_choice)
-            draw_board(board)
+                print_line()
+                print("Turn :",turn, "| Ai choice :",AI_choice)
+                draw_board(board)
 
-            if is_ai_winning() ==True:
-                print("AI win !")
-                game_launch() #restart the game
-            turn+=1
+                if is_ai_winning() ==True:
+                    print("AI win !")
+                    game_launch() #restart the game
+                turn+=1
+            else:
+                print("fdfgdfd",difficulty)
 
     else:
         print("incorret input. Quitting")
